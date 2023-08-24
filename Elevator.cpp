@@ -16,6 +16,9 @@ T abs_diff(T a, T b) {
 Elevator::Elevator(unsigned start, std::unique_ptr<std::vector<unsigned>> visits)
 {	
 	std::cout<<"Starting: "<<start<<" with "<<visits->size()<<" visits\n";
+	// Here the hueristic is to sort the vector then find the floor closest to the start
+	// pick a direction then hit all the floors in that direction before reversing direction
+	// should feel similar to how an actually elevator works 
 	std::sort(visits->begin(),visits->end());
 	std::vector<unsigned> ordered_visits(visits->size());	
 	// bool to track if the elevator will move up or down;
@@ -39,6 +42,7 @@ Elevator::Elevator(unsigned start, std::unique_ptr<std::vector<unsigned>> visits
 		count++;
 	}
 	std::cout<<"count: "<<count<<'\n';
+	// now that we have picked a starting place and a direction make an ordered collection of the floors we will visit
 	if(moveUp)
 	{
 		std::copy(visits->begin()+count,visits->end(),ordered_visits.begin());
@@ -56,6 +60,7 @@ Elevator::Elevator(unsigned start, std::unique_ptr<std::vector<unsigned>> visits
 	unsigned last = start;
 	// sum how many floors the elevator moved 
 	size_t total_floors(0);
+	// now visit the floors
 	for(auto floor : ordered_visits)
 	{
 		ss<<floor<<',';
